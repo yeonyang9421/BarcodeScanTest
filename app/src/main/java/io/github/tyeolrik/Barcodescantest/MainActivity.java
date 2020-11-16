@@ -4,15 +4,19 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+public class MainActivity extends AppCompatActivity {
 
     Button startButton;
+    Button startButton2;
+    Button startButton3;
 
     private final static int CAMERA_PERMISSIONS_GRANTED = 100;
 
@@ -22,6 +26,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         startButton = (Button)findViewById(R.id.startButton);   // Button Boilerplate
+        startButton2 = (Button)findViewById(R.id.startButton2);   // Button Boilerplate
+        startButton3 = (Button)findViewById(R.id.startButton3);   // Button Boilerplate
 
         getCameraPermission();
 
@@ -37,13 +43,26 @@ public class MainActivity extends Activity {
                 startActivity(goNextActivity);
             }
         });
+        startButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goNextActivity = new Intent(getApplicationContext(), QrcodeScan2Activity.class);
+                startActivity(goNextActivity);
+            }
+        });
+        startButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goNextActivity = new Intent(getApplicationContext(),   QRCodeScan3.class);
+                startActivity(goNextActivity);
+            }
+        });
     }
 
     private boolean getCameraPermission() {
         if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             return true;
         } else {
-            // 권한이 왜 필요한지 설명이 필요한가?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     android.Manifest.permission.CAMERA)) {
                 Toast.makeText(this, "카메라 사용을 위해 확인버튼을 눌러주세요!", Toast.LENGTH_SHORT).show();

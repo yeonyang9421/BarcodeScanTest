@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.github.tyeolrik.Barcodescantest">
-
     <!-- CAMERA 사용권한 획득 -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.hardware.camera.autofocus" />
-
-    <!-- 카메라 권한 사용 -->
+    <uses-permission android:name="android.hardware.camera.autofocus" /> <!-- 카메라 권한 사용 -->
     <uses-feature android:name="android.hardware.camera" />
 
     <application
@@ -16,14 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="io.github.tyeolrik.Barcodescantest.MainActivity">
+        <activity android:name=".QRCodeScan3"></activity>
+        <activity android:name=".QrcodeScan2Activity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="io.github.tyeolrik.Barcodescantest.QRCodeScan"></activity>
+        <activity android:name=".QRCodeScan" />
     </application>
 
 </manifest>

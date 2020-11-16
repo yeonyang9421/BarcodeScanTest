@@ -1,11 +1,14 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 29
     defaultConfig {
         applicationId "io.github.tyeolrik.barcodescantest"
         minSdkVersion 23
-        targetSdkVersion 26
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -16,21 +19,71 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    ext {
+        google_play_services_version = '12.0.1'
+    }
 
-    // Android AppCompatActivity (하위호환) 사용
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:support-vector-drawable:26.1.0'
-    implementation 'com.android.support:mediarouter-v7:26.1.0'
+    api 'androidx.legacy:legacy-support-v4:1.0.0'
+    api 'androidx.appcompat:appcompat:1.0.0'
+    api 'com.google.android.material:material:1.2.1'
+    api 'androidx.multidex:multidex:2.0.0'
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    //3rd 라이브러리
+
+
+    def glideVersion = '3.7.0'
+    api 'com.github.bumptech.glide:okhttp-integration:1.4.0@aar'
+    api "com.github.bumptech.glide:glide:$glideVersion"
+
+    api 'com.squareup.okhttp:okhttp:2.7.5'
+    api 'com.facebook.stetho:stetho:1.4.2'
+
+    //디스크 LRU캐쉬
+    api 'com.jakewharton:disklrucache:2.0.2'
+    api 'com.facebook.stetho:stetho:1.5.1'
+
+    api 'androidx.constraintlayout:constraintlayout:2.0.1'
+
+    api 'androidx.recyclerview:recyclerview:1.1.0'
+    api "androidx.core:core-ktx:+"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    api 'androidx.fragment:fragment:1.2.4'
+
+    // Room
+    def room_version = "2.1.0"
+    api "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    // optional - Kotlin Extensions and Coroutines support for Room
+    api "androidx.room:room-ktx:$room_version"
+
+    // ViewModel and LiveData
+    api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    api 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0'
+    api 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+
+    // 오픈소스
+    testImplementation "androidx.room:room-testing:2.2.5"
+
+    api 'com.google.android:flexbox:2.0.1'
+
+    //CameraX
+    implementation 'androidx.camera:camera-camera2:1.0.0-beta11'
+    implementation 'androidx.camera:camera-lifecycle:1.0.0-beta11'
+    implementation 'androidx.camera:camera-view:1.0.0-alpha18'
 
     // Google Mobile Vision API 사용
     implementation 'com.google.android.gms:play-services-vision:11.6.2'
