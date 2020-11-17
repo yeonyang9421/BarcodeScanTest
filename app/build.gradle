@@ -87,4 +87,6 @@ dependencies {
 
     // Google Mobile Vision API 사용
     implementation 'com.google.android.gms:play-services-vision:11.6.2'
+
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
 }

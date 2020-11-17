@@ -9,6 +9,7 @@ import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
@@ -16,13 +17,16 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.google.zxing.client.android.BeepManager;
 
 import java.io.IOException;
 
-public class QRCodeScan extends Activity {
+public class QRCodeScanActivity extends Activity {
 
     CameraSource cameraSource;
     SurfaceView cameraSurface;
+    private String lastText;
+    private BeepManager beepManager;
     private SparseArray<Barcode> barcodes;
     private TextView tvLoginId, tvLoginPass, textViewResult;
     private BarcodeDetector barcodeDetector;
@@ -85,16 +89,22 @@ public class QRCodeScan extends Activity {
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 barcodes = detections.getDetectedItems();
+                if (barcodes.valueAt(0).displayValue == null || (barcodes.valueAt(0).displayValue).equals(lastText)) {
+                    // Prevent duplicate scans
+                    return;
+                }
+                lastText = barcodes.valueAt(0).displayValue;
+
                 if (barcodes.size() != 0) {
                     String barcodeContents = barcodes.valueAt(0).displayValue; // 바코드 인식 결과물
                     Log.d("Detection", barcodeContents);
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Toast.makeText(QRCodeScan.this, "스캔완료!", Toast.LENGTH_SHORT).show();
-//
-//                        }
-//                    });
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(QRCodeScanActivity.this, "스캔완료!", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
                     textViewResult.setText(barcodeContents);
 //                    String result = str.substring(str.lastIndexOf("/")+1);
                     String[] array = barcodeContents.split("/");

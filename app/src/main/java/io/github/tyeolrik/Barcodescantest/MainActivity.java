@@ -1,6 +1,5 @@
 package io.github.tyeolrik.Barcodescantest;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -17,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     Button startButton;
     Button startButton2;
     Button startButton3;
+    Button startButton4;
 
     private final static int CAMERA_PERMISSIONS_GRANTED = 100;
 
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         startButton = (Button)findViewById(R.id.startButton);   // Button Boilerplate
         startButton2 = (Button)findViewById(R.id.startButton2);   // Button Boilerplate
         startButton3 = (Button)findViewById(R.id.startButton3);   // Button Boilerplate
+        startButton4 = (Button)findViewById(R.id.startButton4);   // Button Boilerplate
 
         getCameraPermission();
 
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goNextActivity = new Intent(getApplicationContext(), QRCodeScan.class);
+                Intent goNextActivity = new Intent(getApplicationContext(), QRCodeScanActivity.class);
                 startActivity(goNextActivity);
             }
         });
@@ -53,7 +54,14 @@ public class MainActivity extends AppCompatActivity {
         startButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goNextActivity = new Intent(getApplicationContext(),   QRCodeScan3.class);
+                Intent goNextActivity = new Intent(getApplicationContext(),   QRCodeScan3Activity.class);
+                startActivity(goNextActivity);
+            }
+        });
+        startButton4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goNextActivity = new Intent(getApplicationContext(),   QRCodeWithZxing.class);
                 startActivity(goNextActivity);
             }
         });
