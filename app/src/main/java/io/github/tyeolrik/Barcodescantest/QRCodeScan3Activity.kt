@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.util.SparseArray
 import android.view.SurfaceHolder
@@ -12,7 +13,11 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.AspectRatio
+import androidx.camera.core.*
+import androidx.camera.core.Camera
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
@@ -45,6 +50,15 @@ class QRCodeScan3Activity : AppCompatActivity() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var scopedExecutor: ScopedExecutor
     private var lastText: String? = null
+
+    private var displayId: Int = -1
+    private var cameraProvider: ProcessCameraProvider? = null
+    private var camera: Camera? = null
+    private var imageAnalyzer: ImageAnalysis? = null
+    private lateinit var container: ConstraintLayout
+    private  var viewFinder: PreviewView? = null
+
+
     companion object {
         const val DESIRED_WIDTH_CROP_PERCENT = 8
         const val DESIRED_HEIGHT_CROP_PERCENT = 74
@@ -54,7 +68,7 @@ class QRCodeScan3Activity : AppCompatActivity() {
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val RATIO_4_3_VALUE = 4.0 / 3.0
         private const val RATIO_16_9_VALUE = 16.0 / 9.0
-        private const val TAG = "QrcodeScan2Activity"
+        private const val TAG = "QrcodeScan3Activity"
 
 
     }
@@ -117,6 +131,22 @@ class QRCodeScan3Activity : AppCompatActivity() {
         })
 //            holder.let {  drawOverlay(it, QrcodeScan2Activity.DESIRED_HEIGHT_CROP_PERCENT, QrcodeScan2Activity.DESIRED_WIDTH_CROP_PERCENT) }
         barcodeDetector()
+
+        // Request camera permissions
+        if (allPermissionsGranted()) {
+            // Wait for the views to be properly laid out
+            viewFinder?.post {
+                // Keep track of the display in which this view is attached
+                displayId = viewFinder!!.display.displayId
+
+                // Set up the camera and its use cases
+                setUpCamera()
+            }
+        } else {
+            requestPermissions(REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+        }
+
+
     }
 
 
@@ -228,5 +258,94 @@ class QRCodeScan3Activity : AppCompatActivity() {
         }
         return AspectRatio.RATIO_16_9
     }
+
+
+    /** Initialize CameraX, and prepare to bind the camera use cases  */
+    private fun setUpCamera() {
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+        cameraProviderFuture.addListener(Runnable {
+
+            // CameraProvider
+            cameraProvider = cameraProviderFuture.get()
+
+            // Build and bind the camera use cases
+            bindCameraUseCases()
+        }, ContextCompat.getMainExecutor(this))
+    }
+
+    private fun bindCameraUseCases() {
+        val cameraProvider = cameraProvider
+                ?: throw IllegalStateException("Camera initialization failed.")
+
+        // Get screen metrics used to setup camera for full screen resolution
+        val metrics = DisplayMetrics().also { viewFinder!!.display.getRealMetrics(it) }
+        Log.d(TAG, "Screen metrics: ${metrics.widthPixels} x ${metrics.heightPixels}")
+
+        val screenAspectRatio = aspectRatio(metrics.widthPixels, metrics.heightPixels)
+        Log.d(TAG, "Preview aspect ratio: $screenAspectRatio")
+
+        val rotation = viewFinder!!.display.rotation
+
+        val preview = Preview.Builder()
+                .setTargetAspectRatio(screenAspectRatio)
+                .setTargetRotation(rotation)
+                .build()
+
+        // Build the image analysis use case and instantiate our analyzer
+//        barcordResult()
+        // Select back camera since text detection does not work with front camera
+        val cameraSelector =
+                CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build()
+
+        try {
+//             Unbind use cases before rebinding
+            cameraProvider.unbindAll()
+            camera = cameraProvider.bindToLifecycle(
+                    this, cameraSelector, preview
+            )
+            // Bind use cases to camera
+            preview.setSurfaceProvider(viewFinder!!.surfaceProvider)
+        } catch (exc: IllegalStateException) {
+            Log.e(TAG, "Use case binding failed. This must be running on main thread.", exc)
+        }
+    }
+
+
+    /**
+     * Process result from permission request dialog box, has the request
+     * been granted? If yes, start Camera. Otherwise display a toast
+     */
+    override fun onRequestPermissionsResult(
+            requestCode: Int, permissions: Array<String>, grantResults: IntArray
+    ) {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
+                viewFinder?.post {
+                    // Keep track of the display in which this view is attached
+                    displayId = viewFinder!!.display.displayId
+
+                    // Set up the camera and its use cases
+//                    setUpCamera()
+                }
+            } else {
+                Toast.makeText(
+                        this,
+                        "Permissions not granted by the user.",
+                        Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+
+    /**
+     * Check if all permission specified in the manifest have been granted
+     */
+    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(
+                this, it
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
 
 }

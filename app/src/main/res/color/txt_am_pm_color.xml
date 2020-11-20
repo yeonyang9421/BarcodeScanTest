@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?><!-- tab bottom line selector for Live Chat -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/color_47494e" android:state_checked="true"></item>
+    <item android:color="@color/color_f2f2f2"></item>
+</selector>

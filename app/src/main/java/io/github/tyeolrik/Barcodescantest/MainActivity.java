@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     Button startButton2;
     Button startButton3;
     Button startButton4;
+    Button startButton5;
+    Button startButton6;
 
     private final static int CAMERA_PERMISSIONS_GRANTED = 100;
 
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         startButton2 = (Button)findViewById(R.id.startButton2);   // Button Boilerplate
         startButton3 = (Button)findViewById(R.id.startButton3);   // Button Boilerplate
         startButton4 = (Button)findViewById(R.id.startButton4);   // Button Boilerplate
+        startButton5 = (Button)findViewById(R.id.startButton5);   // Button Boilerplate
+        startButton6 = (Button)findViewById(R.id.startButton6);   // Button Boilerplate
 
         getCameraPermission();
 
@@ -62,6 +66,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent goNextActivity = new Intent(getApplicationContext(),   QRCodeWithZxing.class);
+                startActivity(goNextActivity);
+            }
+        });
+        startButton5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goNextActivity = new Intent(getApplicationContext(),   RoundRectTest.class);
+                startActivity(goNextActivity);
+            }
+        });
+        startButton6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goNextActivity = new Intent(getApplicationContext(),   ConstraintExam.class);
                 startActivity(goNextActivity);
             }
         });

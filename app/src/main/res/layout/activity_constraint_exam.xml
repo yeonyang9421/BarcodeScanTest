@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ID_HISTORY_LIST_HEAD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <View
+            android:id="@+id/ID_HISTORY_LIST_HEAD_MARGIN"
+            android:layout_width="match_parent"
+            android:layout_height="14dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/ID_HISTORY_LIST_DATE"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:background="@color/color_fafafa"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="18dp"
+            android:text="2020년 6월 2일 수요일"
+            android:textColor="@color/color_959595"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ID_HISTORY_LIST_ITEM"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_white_ripple"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:minHeight="74dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="18dp"
+        android:paddingVertical="5dp">
+
+        <LinearLayout
+            android:id="@+id/ID_HISTORY_LIST_RSV_HEAD"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_marginBottom="3dp"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/ID_HISTORY_LIST_RSV_STATUS"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="7dp"
+                android:background="@drawable/reservation_status_bg"
+                android:gravity="center"
+                android:text="통화중"
+                android:textColor="@color/color_FFFFFF"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/ID_HISTORY_LIST_RSV_TIME"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="7dp"
+                android:text="2020.10.20 화요일 오전 10:00"
+                android:textColor="@color/text_color_reservation_state" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/ID_HISTORY_LIST_TITLE"
+                            android:layout_width="0dp"
+                            android:layout_height="28dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="@color/color_191919"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/ID_HISTORY_LIST_COUNT"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintHorizontal_chainStyle="packed"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_default="wrap"
+                            tools:text="김철수, 장철수,김철수, 장철수,김철수,장철수" />
+
+                        <!--          <LinearLayout
+                                      android:id="@+id/linearLayout"
+                                      android:layout_width="wrap_content"
+                                      android:layout_height="28dp"
+                                      android:layout_gravity="start"
+                                      android:orientation="horizontal"
+                                      android:layout_marginStart="10dp"
+                                      app:layout_constraintBottom_toBottomOf="parent"
+                                      app:layout_constraintStart_toEndOf="@+id/ID_HISTORY_LIST_TITLE"
+                                      app:layout_constraintTop_toTopOf="parent">-->
+
+                        <TextView
+                            android:id="@+id/ID_HISTORY_LIST_COUNT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="9/10"
+                            android:textColor="@color/color_999da5"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/ID_HISTORY_LIST_TITLE"
+                            app:layout_constraintTop_toTopOf="parent" />
+                        <!--                        </LinearLayout>-->
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="24dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/ID_HISTORY_LIST_CALL_DIRECTION"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/ic_list_receive" />
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/ic_list_master" />
+
+                    <TextView
+                        android:id="@+id/ID_HISTORY_LIST_STARTER"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:includeFontPadding="false"
+                        android:singleLine="true"
+                        android:text="김철수"
+                        android:textColor="@color/color_adadad"
+                        android:textSize="16dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/ID_HISTORY_LIST_RIGHT_RSV"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/ID_HISTORY_LIST_JOIN_RSV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:background="@drawable/btn_reservation_join"
+                    android:duplicateParentState="true"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/ID_HISTORY_LIST_RIGHT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right">
+
+                    <ImageView
+                        android:id="@+id/ID_HISTORY_LIST_BTN_CALL"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:clickable="true"
+                        android:paddingLeft="6dp"
+                        android:paddingBottom="6dp"
+                        android:src="@drawable/selector_common_btn_call" />
+
+                    <CheckBox
+                        android:id="@+id/ID_HISTORY_LIST_CHECKBOX"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:button="@drawable/common_check_box_selector"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/ID_HISTORY_LIST_TIME"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="오후 2:00"
+                    android:textColor="@color/color_adadad"
+                    android:textSize="12dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/ID_HISTORY_LIST_RSV_LINE"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_efefef" />
+</LinearLayout>
