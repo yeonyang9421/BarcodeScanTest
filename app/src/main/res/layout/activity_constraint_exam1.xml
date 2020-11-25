@@ -95,7 +95,8 @@
 
                         <TextView
                             android:id="@+id/ID_HISTORY_LIST_TITLE"
-                            android:layout_width="0dp"
+                            android:maxWidth="250dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="28dp"
                             android:ellipsize="end"
                             android:maxLines="1"
@@ -107,7 +108,7 @@
                             app:layout_constraintHorizontal_chainStyle="packed"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constrainedWidth="true"
+                            app:layout_constraintWidth_default="wrap"
                             android:text="김철수,장철수kjhhkhkjjkkjhjkhjkhkkjhjjh" />
 
                         <!--          <LinearLayout
@@ -130,10 +131,10 @@
                             android:text="9/10"
                             android:textColor="@color/color_999da5"
                             android:textSize="16sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/ID_HISTORY_LIST_TITLE"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/ID_HISTORY_LIST_TITLE"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toBottomOf="@+id/ID_HISTORY_LIST_TITLE" />
                         <!--                        </LinearLayout>-->
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
