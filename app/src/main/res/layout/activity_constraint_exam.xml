@@ -93,23 +93,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/ID_HISTORY_LIST_TITLE"
-                            android:layout_width="0dp"
-                            android:layout_height="28dp"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:textColor="@color/color_191919"
-                            android:textSize="18sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/ID_HISTORY_LIST_COUNT"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintHorizontal_chainStyle="packed"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constrainedWidth="true"
-                            android:text="김철수,장철수kjhhkhkjjkkjhjkhjkhkkjhjjh" />
-
                         <!--          <LinearLayout
                                       android:id="@+id/linearLayout"
                                       android:layout_width="wrap_content"

@@ -97,7 +97,7 @@
                         android:maxLines="1"
                         android:text="홍길동, 김길동, 박길동, 홍길동, 김길동,박길동, 홍길동, 김길동,"
                         android:textColor="@color/color_a6a6a6"
-                        android:textSize="21sp"/>
+                        android:textSize="21sp" />
 
 
                     <TextView
@@ -124,7 +124,7 @@
 
                     <View
                         android:layout_width="2dp"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
 
 
                 </TableRow>
